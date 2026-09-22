@@ -1,14 +1,23 @@
 from openai import OpenAI
 import os
 
-client = OpenAI(
-  base_url="https://openrouter.ai/api/v1",
-  api_key=os.environ.get("OPEN_ROUTER_KEY"),
-)
+def generate_embedding(text):
+    client = OpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key=os.environ.get("OPEN_ROUTER_KEY"),
+    )
 
-response = client.embeddings.create(
-    model="nvidia/llama-nemotron-embed-vl-1b-v2:free",
-    input="Text you want to embed for your vector database",
-)
+    if isinstance(text, dict):
+        text = text.get("text", "")
+    else:
+        text = text
 
-embedding_vector = response.data[0].embedding
+    response = client.embeddings.create(
+        model="nvidia/llama-nemotron-embed-vl-1b-v2:free",
+        input=text,
+    )
+
+    embedding_vector = response.data[0].embedding
+    print(embedding_vector)
+    return embedding_vector
+
