@@ -4,7 +4,7 @@ import pickle
 from data import *
 from chunks_in_list import store_chunks
 from model_call import generate_embedding
-from search import search
+from generation import answer_question
 
 
 file_name = input("Enter the name of the text file: ")
@@ -45,7 +45,5 @@ else:
     print(f"Successfully embedded and cached {len(all_chunks)} chunks!")
 
 query = input("Enter your query: ")
-results = search(query, all_chunks)
-print("Top results:")
-for score, chunk in results:
-    print(f"Score: {score:.4f}, Text: {chunk['text']}")
+response=answer_question(query, all_chunks)
+print("Response:", response)
