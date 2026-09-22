@@ -18,6 +18,6 @@ def generate_embedding(text):
     )
 
     embedding_vector = response.data[0].embedding
-    print(embedding_vector)
+
     return embedding_vector
 
